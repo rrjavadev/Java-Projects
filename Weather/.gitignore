@@ -1,9 +1,0 @@
-target
-*.class
-*.iml
-*.ipr
-.idea
-.classpath
-.settings
-.project
-.DS_Store
