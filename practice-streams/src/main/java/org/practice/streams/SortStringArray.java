@@ -10,7 +10,7 @@ public class SortStringArray {
 
   public static void main(String[] args) {
     final String[] stringArray = new String[]{"Rajesh", "Aryan", "Ammus"};
-    List<String> sortedList = stream(stringArray).sorted().collect(Collectors.toList());
+    List<String> sortedList = stream(stringArray).sorted().toList();
 
     //print the string array
     Stream.of(stringArray).sorted().forEach(System.out::println);
