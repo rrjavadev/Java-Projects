@@ -77,6 +77,7 @@ git check-attr filter secrets/api_key.txt
 echo "Adding sensitive files to Git..."
 git add secrets/local/env.sh
 git add .gitattributes
+
 # Step 7: Commit changes
 echo "Committing sensitive files with encryption..."
 git commit -m "Add sensitive files with git-crypt encryption rules"
