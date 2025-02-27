@@ -51,22 +51,20 @@ if [[ -f "$GITATTRIBUTES_FILE" ]]; then
     echo "Found existing .gitattributes file. Adding default encryption rules..."
 else
     echo "Creating .gitattributes file with default encryption rules..."
-fi
 
 cat <<EOL >> "$GITATTRIBUTES_FILE"
-
 # Rules for encrypting sensitive files
 *.secret filter=git-crypt diff=git-crypt
 */secrets/* filter=git-crypt diff=git-crypt
 EOL
 
-echo ".gitattributes file updated with encryption rules."
+  echo ".gitattributes file updated with encryption rules."
+fi
 
 # Step 4: Create example sensitive files
 echo "Creating example sensitive files based on .gitattributes rules..."
-mkdir -p secrets
-echo "This is a secret config file." > config.secret
-echo "API_KEY=super-secret-api-key" > secrets/api_key.txt
+mkdir -p secrets/local
+echo "CHANGE_ME=change_me" > secrets/local/env.sh
 
 echo "Example files 'config.secret' and 'secrets/api_key.txt' created."
 
@@ -77,8 +75,8 @@ git check-attr filter secrets/api_key.txt
 
 # Step 6: Add sensitive files to Git
 echo "Adding sensitive files to Git..."
-git add config.secret secrets/api_key.txt
-
+git add secrets/local/env.sh
+git add .gitattributes
 # Step 7: Commit changes
 echo "Committing sensitive files with encryption..."
 git commit -m "Add sensitive files with git-crypt encryption rules"
