@@ -1,0 +1,4 @@
+
+# Rules for encrypting sensitive files
+*.secret filter=git-crypt diff=git-crypt
+*/secrets/* filter=git-crypt diff=git-crypt
