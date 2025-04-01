@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjdk.jmh' version '0.9.0' // Use the JMH Gradle plugin
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = '24'  // Set Java source compatibility
+targetCompatibility = '24'  // Set Java target compatibility
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.openjdk.jmh:jmh-core:1.37' // Or the latest version
+    annotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.37' // Or the latest version
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+jmh {
+    fork = 3
+    warmupIterations = 5
+    measurementIterations = 5
+    timeUnit = 'ns'
+}
+
+application {
+    mainClass = 'org.openjdk.jmh.Main'  // Correct main class for JMH
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.openjdk.jmh.Main'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
